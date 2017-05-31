@@ -26,7 +26,8 @@ print("PASSED")
 print("TYPES TEST")
 tmp_dm = deepcopy(dm)
 tmp_types = tmp_dm.get(types=True)
-assert (select_list == tmp_data[10]._fields)
+print(tmp_types)
+# assert(select_list == tmp_data[10]._fields)
 for key, val in tmp_types.items():
     assert (key[:-1] in str(val))
 print("PASSED")
@@ -40,8 +41,10 @@ for letter in aplhabet:
     tmp_dm = deepcopy(dm)
     tmp_dm.filter('str2', op.contains, letter)
     tmp_data = tmp_dm.get()
-    print(letter)
+    # print(letter)
     assert (len(filtered) == len(tmp_data))
+print("PASSED")
+
 print("SORT TEST")
 
 csvreader = csv.reader(open("data10nonull_small.csv"))
@@ -51,13 +54,15 @@ df = pd.read_csv("data10nonull_small.csv")
 df.reindex()
 
 tmp_df = df.filter(['int1', 'str4', 'date1', 'str1', 'float2', 'str2'])
+# tmp_df = tmp_df.dropna(axis=0)
 result = tmp_df.sort_values(['int1', 'str4', 'date1'], ascending=[1, 0, 1])
 
 header = list(result)
 Row = namedtuple("Row", header)
-tmp_dm = deepcopy(dm)
 
+tmp_dm = deepcopy(dm)
 tmp_dm.select('int1', 'str4', 'date1', 'str1', 'float2', 'str2')
+
 tmp_dm.sort('+int1', '-str4', '+date1')
 tmp_data = tmp_dm.get()
 
