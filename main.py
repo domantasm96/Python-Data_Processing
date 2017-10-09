@@ -5,7 +5,7 @@ from collections import namedtuple
 import operator as op
 import pandas as pd
 
-from s1513204 import DataManipulation
+from operations import DataManipulation
 
 df = pd.read_csv("data10_small.csv")
 df.reindex()
